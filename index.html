@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MSP Deploy Kit - Windows 11 deployments from a USB stick</title>
+<meta name="description" content="MSP Deploy Kit turns a new or freshly reset Windows 11 laptop at the setup screen into a configured, Entra-joined machine for a specific client. Pick the client, pick Full Auto, walk away.">
+<style>
+  :root { --bg:#0b0e14; --panel:#12161f; --line:#232a38; --text:#e6e9ee; --muted:#9aa4b0; --accent:#e5534b; --accent2:#f0b429; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.6 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; }
+  .wrap { max-width:960px; margin:0 auto; padding:0 20px; }
+  header { padding:56px 0 8px; text-align:center; }
+  pre.banner { display:inline-block; text-align:left; font:700 13px/1.25 'Cascadia Mono',Consolas,'Courier New',monospace; color:var(--accent2); margin:0; white-space:pre; overflow-x:auto; max-width:100%; }
+  h1 { font-size:30px; margin:22px 0 6px; }
+  .tag { color:var(--muted); font-size:18px; margin:0 auto 26px; max-width:640px; }
+  .btns { margin:26px 0 10px; }
+  .btn { display:inline-block; padding:12px 22px; border-radius:8px; text-decoration:none; font-weight:600; margin:4px; }
+  .btn.primary { background:var(--accent); color:#fff; }
+  .btn.ghost { border:1px solid var(--line); color:var(--text); }
+  .hero-img { width:100%; border:1px solid var(--line); border-radius:10px; margin:26px 0 6px; }
+  .caption { color:var(--muted); font-size:14px; text-align:center; margin:0 0 10px; }
+  section { padding:34px 0 6px; }
+  h2 { font-size:23px; border-bottom:2px solid var(--accent); padding-bottom:8px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:14px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:16px 18px; }
+  .card h3 { margin:0 0 6px; font-size:17px; }
+  .card p { margin:0; color:var(--muted); }
+  .step { margin:0 0 30px; }
+  .step h3 { margin:0 0 6px; font-size:18px; }
+  .step h3 .n { color:var(--accent); margin-right:8px; }
+  .step p { color:var(--muted); margin:0 0 10px; max-width:760px; }
+  .step img { width:100%; border:1px solid var(--line); border-radius:10px; }
+  code { background:#1a2030; padding:1px 6px; border-radius:5px; font-family:Consolas,'Courier New',monospace; font-size:14px; }
+  .req { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:6px 22px 14px; }
+  .req li { margin:7px 0; }
+  footer { border-top:1px solid var(--line); margin-top:44px; padding:22px 0 34px; color:var(--muted); font-size:14px; text-align:center; }
+  footer a, section a { color:var(--accent2); }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <pre class="banner">___  ___ _________________           _
+|  \/  |/  ___| ___ \  _  \         | |
+| .  . |\ `--.| |_/ / | | |___ _ __ | | ___  _   _
+| |\/| | `--. \  __/| | | / _ \ &#x27;_ \| |/ _ \| | | |
+| |  | |/\__/ / |   | |/ /  __/ |_) | | (_) | |_| |
+\_|  |_/\____/\_|   |___/ \___| .__/|_|\___/ \__, |
+                              | |             __/ |
+                              |_|            |___/</pre>
+    <h1>MSP Deploy Kit</h1>
+    <p class="tag">Turn a brand-new or freshly reset Windows 11 laptop at the setup screen into a configured, Entra-joined machine for a specific client. Pick the client, pick Full Auto, walk away.</p>
+    <img class="hero-img" src="assets/highlights.gif" alt="An MSP Deploy Kit run, start to finish">
+    <p class="caption">One real deployment, start to finish.</p>
+    <div class="btns">
+      <a class="btn primary" href="https://github.com/chadodes/MSP-Deploy-Kit/releases/latest">Download the latest release</a>
+      <a class="btn ghost" href="https://github.com/chadodes/MSP-Deploy-Kit">View on GitHub</a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>What it does</h2>
+    <div class="grid">
+      <div class="card"><h3>Per-client menu</h3><p>One USB stick serves every client. The menu is built from the folders on the stick - add a client by copying a folder, no script edits.</p></div>
+      <div class="card"><h3>Hands-free OOBE</h3><p>Full Auto stages the kit, reboots, and the Windows setup answers itself: screens skipped, your MSP admin account created, region and timezone set.</p></div>
+      <div class="card"><h3>Entra join, zero touch</h3><p>Each client gets a provisioning package with a bulk enrollment token - the supported way to join silently. No passwords are stored, and the staged copy on the machine deletes itself.</p></div>
+      <div class="card"><h3>Drivers from the stick</h3><p>Drop a model's driver packages in the stick's Drivers folder and they are installed before the join, so the network is up when it matters.</p></div>
+      <div class="card"><h3>Updates, handled</h3><p>The latest cumulative update and the 26H2 enablement package install from the stick, then a Windows Update pass runs. A finisher keeps re-checking at each sign-in until the machine is fully current.</p></div>
+      <div class="card"><h3>OneDrive, ready</h3><p>Silent OneDrive sign-in, Files On-Demand, per-client SharePoint libraries auto-synced, and Known Folder Move for Desktop, Documents and Pictures.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>A deployment, step by step</h2>
+
+    <div class="step"><h3><span class="n">1</span>Start at the Windows setup screen</h3>
+    <p>Power on the new or freshly reset laptop. At the first setup screen press <code>Shift+F10</code> for a command prompt, switch to the USB stick, and run <code>setup.cmd</code>.</p>
+    <img src="assets/step-oobe.jpg" alt="Windows setup language screen"></div>
+
+    <div class="step"><h3><span class="n">2</span>Pick the client</h3>
+    <p>The menu lists every client folder on the stick. Pick one and the kit confirms the join account and that the client's join package is on board.</p>
+    <img src="assets/step-client.jpg" alt="Client selection menu"></div>
+
+    <div class="step"><h3><span class="n">3</span>Pick Full Auto</h3>
+    <p>Mode 1 applies the settings, stages the kit on the machine, and reboots into a hands-free OOBE. (Mode 2, Settings Only, skips the staged OOBE for machines you would rather click through yourself.)</p>
+    <img src="assets/step-mode.jpg" alt="Full Auto mode selected"></div>
+
+    <div class="step"><h3><span class="n">4</span>The join applies - and the script resumes itself</h3>
+    <p>At first sign-in the finishing script installs drivers and applies the client's Entra join package, then restarts to complete the join. Sign back in and it picks up exactly where it left off.</p>
+    <img src="assets/step-resume.jpg" alt="Script resuming after the join restart"></div>
+
+    <div class="step"><h3><span class="n">5</span>Agent and apps install</h3>
+    <p>Per-user settings, power settings, generic apps, and the client's own agent installer from its folder on the stick.</p>
+    <img src="assets/step-apps.jpg" alt="Client agent installing"></div>
+
+    <div class="step"><h3><span class="n">6</span>Updates from the stick, then Windows Update</h3>
+    <p>The stick's cumulative update and the 26H2 enablement package go on first, then a Windows Update pass catches whatever is left. The timezone is set, the update finisher is registered, and the staged kit cleans itself up.</p>
+    <img src="assets/step-updates.jpg" alt="Stick updates installing"></div>
+
+    <div class="step"><h3><span class="n">7</span>Done</h3>
+    <p>The full run is logged to <code>C:\MSPDeploy\deploy-&lt;computername&gt;.log</code> - one log per machine, named for the machine. The longer cut of this run is in the <a href="assets/walkthrough.gif">full walkthrough GIF</a>.</p>
+    <img src="assets/step-done.jpg" alt="Deployment finished"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Requirements</h2>
+    <div class="req">
+      <ul>
+        <li>A USB stick with the kit copied to its root.</li>
+        <li>Windows 11 Pro, Enterprise or Education for the Entra join (Home cannot join a tenant).</li>
+        <li>One provisioning package (<code>join.ppkg</code>) per client, made once in the free Windows Configuration Designer. Bulk tokens expire - up to about 180 days - so regenerate each client's package before it lapses; the kit falls back to a guided manual join if one is missing.</li>
+        <li>Change the local admin password in <code>config.cmd</code> before first use - the placeholder is public, and the stick should be treated like a credential.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    MSP Deploy Kit - <a href="https://github.com/chadodes/MSP-Deploy-Kit">GitHub</a> - <a href="https://github.com/chadodes/MSP-Deploy-Kit/releases/latest">Latest release</a><br>
+    Built by an MSP, for MSPs.
+  </div>
+</footer>
+</body>
+</html>
